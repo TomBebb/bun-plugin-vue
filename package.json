@@ -1,0 +1,17 @@
+{
+  "name": "bun-plugin-vue",
+  "license": "BSD-3-Clause",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "bun-plugin-dts": "^0.1.0",
+    "bun-types": "^0.8.1",
+    "typescript": "^5.2.2"
+  },
+  "scripts": {
+    "build": "bun build.ts"
+  }
+}
