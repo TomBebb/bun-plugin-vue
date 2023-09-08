@@ -4,23 +4,44 @@ import fs from "fs/promises"
 const root = import.meta.dir
 const outDir = path.join(root, "dist")
 console.log("build root", root)
-await Bun.build({
-    root,
-    target: "browser",
-    plugins: [
-        vuePlugin
-    ],
-    entrypoints: [
-        path.join(root, "main.ts")
-    ],
-    outdir: outDir,
-    splitting: true,
-})
 
-const indexPath = "index.html"
-const compIndexPath = path.join(outDir, indexPath)
-await fs.copyFile(path.join(root, indexPath), compIndexPath)
 
-const content = await fs.readFile(compIndexPath, "utf8")
+async function build() {
+    await Bun.build({
+        root,
+        
+        target: "browser",
+        plugins: [
+            vuePlugin
+        ],
+        entrypoints: [
+            path.join(root, "main.ts")
+        ],
+        outdir: outDir,
+        splitting: true,
+    })
+    const indexPath = "index.html"
+    const compIndexPath = path.join(outDir, indexPath)
+    await fs.copyFile(path.join(root, indexPath), compIndexPath)
+    
+    const content = await fs.readFile(compIndexPath, "utf8")
+    
+    await fs.writeFile(compIndexPath ,content.replaceAll(".ts", ".js"))
+}
 
-await fs.writeFile(compIndexPath ,content.replaceAll(".ts", ".js"))
+await build()
+
+if (process.env.WATCH) {
+    console.log("Watching for file changes")
+    for await (const part of fs.watch(root, {recursive: true})) {
+        console.log('file changed', {
+            path: part.filename,
+            isOut: part.filename.startsWith(outDir)
+        })
+        if (part.filename.startsWith("dist"))
+        continue;
+
+        await build()
+    }
+     fs.watch(root, {recursive: true})
+}
