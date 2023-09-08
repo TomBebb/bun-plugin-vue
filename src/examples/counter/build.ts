@@ -1,15 +1,26 @@
 import vuePlugin from "./../../";
 import path from "path"
-
+import fs from "fs/promises"
+const root = import.meta.dir
+const outDir = path.join(root, "dist")
+console.log("build root", root)
 await Bun.build({
-    root: import.meta.dir,
+    root,
     target: "browser",
     plugins: [
         vuePlugin
     ],
     entrypoints: [
-        path.join(import.meta.dir, "main.ts")
+        path.join(root, "main.ts")
     ],
-    outdir: "dist",
+    outdir: outDir,
     splitting: true,
 })
+
+const indexPath = "index.html"
+const compIndexPath = path.join(outDir, indexPath)
+await fs.copyFile(path.join(root, indexPath), compIndexPath)
+
+const content = await fs.readFile(compIndexPath, "utf8")
+
+await fs.writeFile(compIndexPath ,content.replaceAll(".ts", ".js"))

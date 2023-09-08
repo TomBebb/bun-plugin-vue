@@ -15,6 +15,7 @@
   "scripts": {
     "build": "bun build.ts",
     "example:build": "bun src/examples/counter/build.ts",
-    "example:start": "bun src/examples/counter/server.ts"
+    "example:start": "bun src/examples/counter/server.ts",
+    "example": "bun run example:build && bun run example:start"
   }
 }

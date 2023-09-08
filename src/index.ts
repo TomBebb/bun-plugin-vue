@@ -44,6 +44,7 @@ const vuePlugin: BunPlugin = {
 
             let isProd = process.env.NODE_ENV == "development" ? false : true;
             const scrSetup = parsed.descriptor.scriptSetup
+            let code = ""
             if (scrSetup?.setup) {
                 //console.log('attrs', scrSetup?.attrs)
                 if (scrSetup?.attrs?.lang === "ts") {
@@ -67,7 +68,7 @@ const vuePlugin: BunPlugin = {
             return {
                 loader: lang,
 
-                contents: `${code};const s=document.createElement("style");s.innerText='todo';document.onload=()=>document.body.appendChild(s)`,
+                contents: `${code};const s=document.createElement("style");s.innerText=${JSON.stringify(style)};document.body.appendChild(s)`,
             }
         })
     },
