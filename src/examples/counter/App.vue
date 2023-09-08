@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-
+import MyBtn from "./components/MyBtn.vue"
  let counter = ref(0)
 
 function increment() {
@@ -16,15 +16,18 @@ function decrement() {
     <div>
         {{ counter }}
     </div>
-    <button @click="increment" class="pos">+</button>
-    <button @click="decrement" class="neg">-</button>
+    <MyBtn @click="increment" content="+" class="pos"/>
+    <MyBtn @click="decrement" content="-" class="neg"/>
 </template>
 <style> 
 .pos {
     background-color: green;
+    color: white;
 }
-
+ 
 .neg {
     background-color: red;
-}
+    color: white;
+
+    }
 </style>
