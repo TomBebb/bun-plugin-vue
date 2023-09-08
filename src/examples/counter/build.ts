@@ -51,6 +51,7 @@ async function setupWebsocket() {
             // handle HTTP request normally
             return new Response("Hello world!");
         },
+    
         websocket: {
             message(ws, msg) {
                 console.log("GOT ws message", msg)
@@ -67,7 +68,7 @@ async function setupWebsocket() {
 }
 async function listenFileChanges() {
 
-    for await (const part of fs.watch(root, { recursive: true })) {
+    for await (const part of fs.watch(root, { recursive: true , persistent: true})) {
         if (part.filename.startsWith("dist"))
             continue;
 
