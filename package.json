@@ -9,9 +9,12 @@
   "devDependencies": {
     "bun-plugin-dts": "^0.1.0",
     "bun-types": "^0.8.1",
+    "serve-static-bun": "^0.5.3",
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "build": "bun build.ts"
+    "build": "bun build.ts",
+    "example:build": "bun src/examples/counter/build.ts",
+    "example:start": "bun src/examples/counter/server.ts"
   }
 }

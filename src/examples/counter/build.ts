@@ -1,6 +1,7 @@
 import vuePlugin from "./../../";
 
 await Bun.build({
+    target: "browser",
     plugins: [
         vuePlugin
     ],
@@ -9,5 +10,4 @@ await Bun.build({
     ],
      outdir: "dist",
      splitting: true,
-      minify: true,
 })

@@ -65,7 +65,7 @@ let lang : Loader = "js"
     return {
       loader: lang,
 
-      contents: `${code};const s=document.createElement("style");s.innerText=${JSON.stringify(style.code)};document.body.appendChild(s)`,
+      contents: `${code};const s=document.createElement("style");s.innerText=${JSON.stringify(style.code)};document.onload=()=>document.body.appendChild(s)`,
     }
   })
   },
