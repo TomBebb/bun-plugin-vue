@@ -19,7 +19,7 @@ function decrement() {
     <button @click="increment" class="pos">+</button>
     <button @click="decrement" class="neg">-</button>
 </template>
-<style>
+<style> 
 .pos {
     background-color: green;
 }
